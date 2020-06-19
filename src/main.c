@@ -19,8 +19,8 @@ int main() {
   /*definindo o vetor de pid*/
   pid_t pid[3];
 	
-	/* c identificará o \n no final da mensagem*/
-	/* numeros é o vetor que armazenará cada número recebido*/
+  /* c identificará o \n no final da mensagem*/
+  /* numeros é o vetor que armazenará cada número recebido*/
   char c = 'c';
   unsigned long long int  numeros[1000];
   int i = 0, k = 0;
@@ -44,6 +44,7 @@ int main() {
     scanf("%c", &c);
     i++;
   }
+  
   /*i armazena a quantidade de números que recebemos e k quantos numeros avaliamos*/
 	while(k<i){
    /*caso tenhamos um número de 3 processos filhos, aguardamos nesse if até que todos sejam fechados.*/
@@ -53,27 +54,27 @@ int main() {
         waitpid(pid[w], NULL, 0);/*estamos aguardando que no w pids que ainda estão abertos sejam encerrados*/
         (*n_processos)--;
       }
-     }else{
-        /*caso tenhamos menos 3 processos filhos, iniciamos o próximo para avaliar se o próximo número é primo*/
-        pid[k] = fork();
-        (*n_processos)++;/*a cada processo iniciado contamos +1*/
-       
-        /*dentro do processo filho K avaliaremos se o numeros[k] é primo ou não e retornaremos +1 em primos caso seja.*/
-        if(pid[k] == 0){
-            if(numeros[k]!=2 && numeros[k]!=3 && numeros[k]!=5 && numeros[k]!=7){
-              
-              if(numeros[k]<=1);
-              else if(numeros[k]%2==0);
-              else if(numeros[k]%3==0);
-              else if(numeros[k]%5==0);
-              else if(numeros[k]%7==0);
-              else(*primos)++;
-           
-            }
-            else (*primos)++;
-          exit(0);/*saindo do processo filho*/
-        }
-        k+=1;/*contador de números avaliados*/
+   }else{
+      /*caso tenhamos menos 3 processos filhos, iniciamos o próximo para avaliar se o próximo número é primo*/
+      pid[k] = fork();
+      (*n_processos)++;/*a cada processo iniciado contamos +1*/
+
+      /*dentro do processo filho K avaliaremos se o numeros[k] é primo ou não e retornaremos +1 em primos caso seja.*/
+      if(pid[k] == 0){
+          if(numeros[k]!=2 && numeros[k]!=3 && numeros[k]!=5 && numeros[k]!=7){
+
+            if(numeros[k]<=1);
+            else if(numeros[k]%2==0);
+            else if(numeros[k]%3==0);
+            else if(numeros[k]%5==0);
+            else if(numeros[k]%7==0);
+            else(*primos)++;
+
+          }
+          else (*primos)++;
+        exit(0);/*saindo do processo filho*/
+      }
+      k+=1;/*contador de números avaliados*/
     }
 	}
   
